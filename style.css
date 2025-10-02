@@ -1,10 +1,12 @@
+/* GERAL E VARIÁVEIS */
 :root {
     --primary-color: #ffffff;
-    --secondary-color: #b0b0b0;
-    --background-color: #121212;
-    --card-background: #1e1e1e;
+    --background-color: #0d0d0d;
+    --card-background: #1a1a1a;
     --accent-color: #00aaff;
-    --shadow-color: rgba(0, 170, 255, 0.2);
+    --text-secondary: #a0a0a0;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Lato', sans-serif;
 }
 
 * {
@@ -13,75 +15,172 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    color: var(--primary-color);
-    line-height: 1.6;
+html {
+    scroll-behavior: smooth;
 }
 
-/* Seção Hero */
-.hero {
-    padding: 5rem 2rem;
+body {
+    font-family: var(--font-body);
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 900;
     text-align: center;
-    background-color: #161616;
+    margin-bottom: 4rem;
+    text-transform: uppercase;
+}
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
 }
 
 .hero-content {
-    max-width: 800px;
-    margin: 0 auto;
+    position: relative;
+    z-index: 3;
+    padding: 1rem;
 }
 
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
+.hero-headline {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.hero-subtitle {
-    font-size: 1.1rem;
-    color: var(--secondary-color);
-    margin: 1rem 0 2rem;
+.hero-subheadline {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 1rem 0 2.5rem;
+    max-width: 600px;
 }
 
-.social-links a {
+.cta-button {
+    font-family: var(--font-heading);
+    background: var(--accent-color);
     color: var(--primary-color);
-    font-size: 1.5rem;
-    margin: 0 1rem;
-    transition: color 0.3s ease;
+    padding: 1rem 2.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.social-links a:hover {
+.cta-button:hover {
+    transform: scale(1.05);
+    background-color: #0088cc;
+}
+
+/* SEÇÕES GERAIS */
+.services-section,
+.portfolio-section,
+.testimonials-section,
+.contact-section {
+    padding: 6rem 0;
+}
+
+/* SERVIÇOS */
+.services-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--card-background);
+    padding: 2.5rem;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #222;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color);
+}
+
+.service-card .icon {
+    font-size: 3rem;
     color: var(--accent-color);
+    margin-bottom: 1.5rem;
 }
 
-/* Grid de Vídeos */
+.service-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* PORTFOLIO (Vídeos) */
 .video-grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2.5rem;
-    padding: 3rem;
-    max-width: 1400px;
-    margin: 0 auto;
 }
 
-/* Card Individual de Vídeo */
 .video-card {
     background-color: var(--card-background);
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .video-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px var(--shadow-color);
+    transform: scale(1.03);
 }
 
 .video-embed-container {
     position: relative;
     padding-top: 56.25%;
-    /* Proporção 16:9 */
     height: 0;
 }
 
@@ -100,28 +199,62 @@ body {
 
 .video-info h3 {
     font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: var(--font-heading);
 }
 
 .video-info p {
     font-size: 0.95rem;
-    color: var(--secondary-color);
+    color: var(--text-secondary);
 }
 
-
-/* --- NOVOS ESTILOS PARA A SEÇÃO DE CONTATO --- */
-
-#contact-section {
-    background-color: #161616;
-    text-align: center;
-    padding: 4rem 2rem;
+/* DEPOIMENTOS */
+.testimonials-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
 }
 
-#contact-section h2 {
+.testimonial-card {
+    background: transparent;
+    padding: 2rem;
+    border: 1px solid #333;
+    border-radius: 10px;
+}
+
+.testimonial-card .quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-card .author {
+    font-weight: 700;
+    font-family: var(--font-heading);
+}
+
+.testimonial-card .company {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+/* CONTATO */
+.contact-section {
+    background-color: var(--card-background);
+}
+
+.contact-title {
+    font-family: var(--font-heading);
     font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.contact-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 1rem auto 3rem;
 }
 
 .contact-list-container {
@@ -129,42 +262,78 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
 }
 
 .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: var(--card-background);
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    /* Estilo de "pílula" */
+    font-family: var(--font-heading);
+    font-weight: 700;
+    display: inline-block;
+    background-color: var(--accent-color);
+    padding: 1rem 2.5rem;
+    border-radius: 5px;
     text-decoration: none;
     color: var(--primary-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .contact-item:hover {
-    background-color: var(--accent-color);
-    color: #fff;
+    transform: scale(1.05);
 }
 
-.contact-item i {
-    font-size: 1.2rem;
-}
-
-.contact-item span {
-    font-weight: 400;
-}
-
-
-/* Rodapé */
-footer {
+/* BOTÃO WHATSAPP FLUTUANTE */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
     text-align: center;
-    padding: 2rem;
-    margin-top: 0;
-    /* Remove a margem extra */
-    color: var(--secondary-color);
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+/* FOOTER */
+.main-footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.social-links-footer {
+    margin-top: 1rem;
+}
+
+.social-links-footer a {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    margin: 0 0.75rem;
+    transition: color 0.3s ease;
+}
+
+.social-links-footer a:hover {
+    color: var(--accent-color);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-headline {
+        font-size: clamp(2rem, 10vw, 3rem);
+    }
 }
