@@ -1,0 +1,54 @@
+{
+    "personalInfo": {
+        "name": "Seu Nome Completo",
+        "subtitle": "Editor de Vídeos | Motion Designer | Storyteller Visual",
+        "socialLinks": [
+            {
+                "icon": "fab fa-instagram",
+                "url": "https://instagram.com/seu-usuario"
+            },
+            {
+                "icon": "fab fa-linkedin",
+                "url": "https://linkedin.com/in/seu-usuario"
+            },
+            {
+                "icon": "fab fa-vimeo-v",
+                "url": "https://vimeo.com/seu-usuario"
+            }
+        ]
+    },
+    "videos": [
+        {
+            "id": "dQw4w9WgXcQ",
+            "title": "Comercial Cinematográfico de Carro",
+            "description": "Edição, color grading e sound design para um comercial de carro. O foco foi criar uma atmosfera dinâmica e premium."
+        },
+        {
+            "id": "3g34gSmTc3A",
+            "title": "Mini-Documentário: O Artesão",
+            "description": "Um curta documental sobre a vida de um artesão local. A edição buscou um ritmo mais contemplativo para valorizar a narrativa."
+        },
+        {
+            "id": "jfKfPfyJRdk",
+            "title": "Animação de Logo (Motion Graphics)",
+            "description": "Criação de uma animação de logo para uma startup de tecnologia, utilizando Adobe After Effects para um resultado moderno e fluido."
+        }
+    ],
+    "contacts": [
+        {
+            "type": "email",
+            "value": "seu-email@provedor.com",
+            "display": "seu-email@provedor.com"
+        },
+        {
+            "type": "whatsapp",
+            "value": "+5511999999999",
+            "display": "(11) 99999-9999"
+        },
+        {
+            "type": "linkedin",
+            "value": "https://www.linkedin.com/in/seu-usuario/",
+            "display": "Perfil no LinkedIn"
+        }
+    ]
+}
