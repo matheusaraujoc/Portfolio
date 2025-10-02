@@ -12,63 +12,91 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header class="hero">
-        <div class="hero-video-container">
-            <video autoplay muted loop playsinline id="hero-video"></video>
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-headline" data-aos="fade-down"></h1>
-            <p class="hero-subheadline" data-aos="fade-up" data-aos-delay="200"></p>
-            <a href="#portfolio" class="cta-button" data-aos="fade-up" data-aos-delay="400">Ver Meus Trabalhos</a>
-        </div>
-    </header>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
 
-    <section id="services" class="services-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up"></h2>
-            <div id="services-grid" class="services-grid-container"></div>
-        </div>
-    </section>
+    <div id="scroll-animation-container">
+        <canvas id="hero-canvas"></canvas>
+    </div>
 
-    <main id="portfolio" class="portfolio-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up"></h2>
-            <div id="video-grid" class="video-grid-container"></div>
-        </div>
-    </main>
+    <div id="site-content">
+        <header class="hero">
+            <div class="hero-content">
+                <h1 class="hero-headline" data-aos="fade-down"></h1>
+                <p class="hero-subheadline" data-aos="fade-up" data-aos-delay="200"></p>
+                <a href="#portfolio" class="cta-button" data-aos="fade-up" data-aos-delay="400">Ver Meus Trabalhos</a>
+            </div>
+        </header>
 
-    <section id="testimonials" class="testimonials-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up"></h2>
-            <div id="testimonials-grid" class="testimonials-grid-container"></div>
-        </div>
-    </section>
+        <section id="services" class="services-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up"></h2>
+                <div id="services-grid" class="services-grid-container"></div>
+            </div>
+        </section>
 
-    <section id="contact" class="contact-section">
-        <div class="container" data-aos="fade-up">
-            <h2 class="contact-title">Pronto para começar seu próximo projeto?</h2>
-            <p class="contact-subtitle">Vamos conversar sobre como posso ajudar a transformar sua visão em realidade.
+        <main id="portfolio" class="portfolio-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up"></h2>
+                <div class="swiper-container" data-aos="fade-up">
+                    <div class="swiper" id="video-carousel">
+                        <div class="swiper-wrapper">
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div class="view-more-container" data-aos="fade-up">
+                    <button id="view-more-button" class="view-more-button">Ver Todos os Projetos</button>
+                </div>
+            </div>
+        </main>
+
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up"></h2>
+                <div id="testimonials-grid" class="testimonials-grid-container"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container" data-aos="fade-up">
+                <h2 class="contact-title">Pronto para começar seu próximo projeto?</h2>
+                <p class="contact-subtitle">Vamos conversar sobre como posso ajudar a transformar sua visão em
+                    realidade.</p>
+                <div id="contact-list" class="contact-list-container"></div>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <p>&copy; <span id="current-year"></span> <span class="footer-name"></span>. Todos os direitos reservados.
             </p>
-            <div id="contact-list" class="contact-list-container"></div>
-        </div>
-    </section>
+            <div class="social-links-footer"></div>
+        </footer>
+    </div>
 
-    <footer class="main-footer">
-        <p>&copy; <span id="current-year"></span> <span class="footer-name"></span>. Todos os direitos reservados.</p>
-        <div class="social-links-footer"></div>
-    </footer>
+    <div id="gallery-modal" class="gallery-modal">
+        <button id="close-modal-button" class="close-modal-button" aria-label="Fechar galeria">&times;</button>
+        <div class="gallery-modal-content">
+            <h2>Galeria de Projetos</h2>
+            <div id="modal-video-grid" class="video-grid-container">
+            </div>
+        </div>
+    </div>
 
     <a id="whatsapp-float-button" href="#" target="_blank" class="whatsapp-float"
         aria-label="Fale conosco pelo WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="monitor.js"></script>
 </body>

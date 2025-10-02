@@ -1,6 +1,10 @@
 {
+    "scrollAnimation": {
+        "status": "ativado",
+        "frameCount": 120,
+        "folder": "assets/scroll-sequence/"
+    },
     "hero": {
-        "backgroundVideo": "assets/hero-video.mp4",
         "headline": "Transformando Ideias em Vídeos Memoráveis",
         "subheadline": "Edição de vídeo que captura a atenção, conta uma história e gera resultados."
     },
@@ -56,19 +60,36 @@
                 "id": "dQw4w9WgXcQ",
                 "title": "Comercial Cinematográfico",
                 "description": "Projeto para a marca X.",
-                "status": "ativado"
+                "status": "ativado",
+                "featured": true
             },
             {
                 "id": "3g34gSmTc3A",
                 "title": "Mini-Documentário",
                 "description": "História do artesão Y.",
-                "status": "ativado"
+                "status": "ativado",
+                "featured": true
             },
             {
                 "id": "jfKfPfyJRdk",
                 "title": "Animação de Logo",
                 "description": "Motion Graphics para a empresa Z.",
-                "status": "desativado"
+                "status": "ativado",
+                "featured": true
+            },
+            {
+                "id": "z1Q_A_8JSME",
+                "title": "Vídeo Corporativo",
+                "description": "Vídeo institucional para a empresa ABC.",
+                "status": "ativado",
+                "featured": false
+            },
+            {
+                "id": "Scxs7L0hZso",
+                "title": "Videoclipe Musical",
+                "description": "Clipe para a banda TKO.",
+                "status": "ativado",
+                "featured": false
             }
         ]
     },
@@ -80,12 +101,6 @@
                 "quote": "O trabalho de edição superou todas as nossas expectativas. Profissionalismo e criatividade do início ao fim.",
                 "author": "João Silva",
                 "company": "CEO da Empresa X",
-                "status": "ativado"
-            },
-            {
-                "quote": "A comunicação foi excelente e o resultado final ficou incrível. Com certeza trabalharemos juntos novamente.",
-                "author": "Maria Oliveira",
-                "company": "Diretora de Marketing da Empresa Y",
                 "status": "ativado"
             }
         ]
