@@ -86,14 +86,14 @@
                 "title": "Vídeo Corporativo",
                 "description": "Vídeo institucional para a empresa ABC.",
                 "status": "ativado",
-                "featured": false
+                "featured": true
             },
             {
                 "id": "Scxs7L0hZso",
                 "title": "Videoclipe Musical",
                 "description": "Clipe para a banda TKO.",
                 "status": "ativado",
-                "featured": false
+                "featured": true
             }
         ]
     },
