@@ -1,131 +1,167 @@
-# Portfolio de Edição de Vídeos
+Com certeza\! Analisei a documentação que você criou. Ela já tem uma base excelente, com um foco muito claro na facilidade de uso através do `config.json`.
 
-Um template de site de portfólio moderno, responsivo e minimalista, projetado para editores de vídeo, motion designers e criadores de conteúdo. O principal diferencial deste projeto é a facilidade de atualização: todo o conteúdo do site é gerenciado através de um único arquivo de configuração (`config.json`), sem a necessidade de tocar em código HTML ou JavaScript.
+Meu objetivo foi expandir os pontos que não estavam cobertos e aprimorar os tutoriais existentes, tornando a documentação completa e à prova de dúvidas para qualquer pessoa (incluindo você no futuro) que for gerenciar o site.
 
-**[➡️ Clique aqui para ver o site ao vivo](https://www.google.com/search?q=https://SEU-USUARIO.github.io/SEU-REPOSITORIO/)**
-*(Lembre-se de substituir com o link do seu site publicado\!)*
+Aqui está a versão revisada e ampliada.
 
 -----
 
-*(Dica: Tire uma captura de tela do seu site finalizado, adicione o arquivo de imagem ao seu repositório do GitHub e substitua o texto acima pelo link da imagem.)*
+# Portfólio de Edição de Vídeos
+
+Um template de site moderno, responsivo e dinâmico, projetado para editores de vídeo, motion designers e criadores de conteúdo. O principal diferencial deste projeto é a facilidade de atualização: todo o conteúdo, desde textos e vídeos até a ativação de seções inteiras, é gerenciado através de um único arquivo de configuração (`config.json`), sem a necessidade de tocar em código HTML, CSS ou JavaScript.
+
+**[➡️ Ver Demo ao Vivo](https://www.google.com/search?q=https://SEU-USUARIO-GITHUB.github.io/SEU-REPOSITORIO/)**
+*(Lembre-se de substituir pelo link do seu site publicado\!)*
+
+*(Dica: Tire uma captura de tela do seu site, adicione ao repositório e substitua o link acima para exibir uma prévia aqui.)*
 
 ## ✨ Funcionalidades
 
-  * 🎨 **Design Moderno e Responsivo**: Visual atraente que se adapta perfeitamente a desktops, tablets e celulares.
-  * 🚀 **Rápido e Otimizado**: Construído com tecnologias web essenciais (HTML, CSS, JS), garantindo um carregamento rápido.
-  * 🔧 **Gerenciamento Centralizado**: Todas as informações (dados pessoais, vídeos, contatos) são controladas a partir de um único arquivo `config.json`.
-  * 🎬 **Exibição Dinâmica de Vídeos**: Adicione, edite ou remova vídeos do seu portfólio apenas editando a lista de configuração.
-  * 📞 **Seção de Contatos Dinâmica**: Ative ou desative métodos de contato (Email, WhatsApp, LinkedIn, etc.) de forma simples e intuitiva.
-  * 🌐 **Pronto para Deploy**: O projeto está configurado para ser publicado gratuitamente com o GitHub Pages.
+  * 🎨 **Design Moderno e Imersivo**: Visual atraente que se adapta perfeitamente a desktops, tablets e celulares.
+  * 🎬 **Animação de Scroll Interativa**: Uma sequência de imagens que cria um efeito de vídeo conforme o usuário rola a página, com fallback para conexões lentas.
+  * 🔧 **Gerenciamento 100% Centralizado**: Todas as informações (textos, vídeos, serviços, contatos, links sociais) são controladas a partir de um único arquivo `config.json`.
+  * 🚀 **Otimizado para Performance**: Construído com tecnologias web essenciais e bibliotecas leves, garantindo um carregamento rápido e uma experiência fluida.
+  * modular **Conteúdo Modular**: Ative ou desative seções inteiras do site (Serviços, Depoimentos, etc.) com uma única chave no arquivo de configuração.
+  * 🌐 **Pronto para Deploy**: O projeto está configurado para ser publicado gratuitamente com o GitHub Pages em poucos minutos.
+
+## 📁 Estrutura do Projeto
+
+```
+/
+├── 📂 assets/
+│   └── 📂 scroll-sequence/
+│       ├── frame (1).jpg
+│       ├── frame (2).jpg
+│       └── ... (suas imagens da animação)
+├── 📄 config.json         <-- ✨ VOCÊ EDITA APENAS AQUI
+├── 📄 index.html          <-- Estrutura principal
+├── 📄 monitor.js          <-- Lógica que lê o config.json
+└── 📄 style.css           <-- Estilos visuais
+```
 
 ## 🛠️ Tecnologias Utilizadas
 
-O projeto foi construído utilizando as seguintes tecnologias:
+  * **HTML5** e **CSS3** para estrutura e estilo.
+  * **JavaScript (Vanilla)** para a lógica dinâmica e interatividade.
+  * **[AOS (Animate On Scroll)](https://michalsnik.github.io/aos/)**: Para as animações de surgimento dos elementos.
+  * **[Swiper.js](https://swiperjs.com/)**: Para o carrossel de vídeos em destaque.
+  * **[Font Awesome](https://fontawesome.com/)**: Para os ícones.
 
 ## ⚙️ Como Configurar e Personalizar
 
-> **A Regra de Ouro:** Toda a personalização do site é feita em um único arquivo: `config.json`. Abra este arquivo para começar.
+> **A Regra de Ouro:** Toda a personalização do conteúdo do site é feita em um único arquivo: `config.json`. Abra este arquivo para começar.
 
-### 1\. Informações Pessoais e Links Sociais
+### 1\. Animação de Scroll (Background)
 
-No topo do `config.json`, você encontrará o bloco `personalInfo`.
+Esta é a primeira seção do `config.json`. Ela controla a animação de imagens que acontece no início do site.
 
 ```json
-"personalInfo": {
-  "name": "Seu Nome Completo",
-  "subtitle": "Editor de Vídeos | Motion Designer | Storyteller Visual",
-  "socialLinks": [
-    {
-      "icon": "fab fa-instagram",
-      "url": "https://instagram.com/seu-usuario"
-    },
-    {
-      "icon": "fab fa-linkedin",
-      "url": "https://linkedin.com/in/seu-usuario"
-    }
-  ]
+"scrollAnimation": {
+    "status": "ativado",
+    "frameCount": 120,
+    "folder": "assets/scroll-sequence/"
 }
 ```
 
-  * **Para alterar seu nome e subtítulo:** Simplesmente edite o texto dentro das aspas `""`.
-  * **Para alterar os links sociais:** Edite a `url`.
-  * **Para adicionar um novo link social:** Copie um bloco `{...}`, cole-o no final da lista `socialLinks` (lembre-se da vírgula) e altere o `icon` e a `url`. Você pode encontrar os nomes dos ícones no site do [Font Awesome](https://fontawesome.com/icons).
+  * `"status"`: Mude para `"desativado"` se quiser remover a animação e ter um fundo simples.
+  * `"frameCount"`: O **número total de imagens** que sua animação possui.
+  * `"folder"`: A pasta onde as imagens estão. Para substituir a animação, coloque suas imagens nesta pasta, mantendo o padrão de nome: `frame (1).jpg`, `frame (2).jpg`, `frame (3).jpg`, e assim por diante.
 
-### 2\. Gerenciando os Vídeos
-
-Encontre a lista `"videos": [ ... ]` no arquivo de configuração.
+### 2\. Textos Principais (Hero Section)
 
 ```json
-"videos": [
-  {
-    "id": "dQw4w9WgXcQ",
-    "title": "Comercial Cinematográfico de Carro",
-    "description": "Edição, color grading e sound design para um comercial..."
-  }
-]
+"hero": {
+    "headline": "Transformando Ideias em Vídeos Memoráveis",
+    "subheadline": "Edição de vídeo que captura a atenção, conta uma história e gera resultados."
+}
 ```
 
-  * **Para Adicionar um Vídeo:**
+  * Basta editar os textos entre aspas para alterar os títulos principais do site.
 
-    1.  Copie um bloco de vídeo existente (de `{` a `}`).
-    2.  Cole o bloco no final da lista, garantindo que haja uma vírgula `,` após o bloco anterior.
-    3.  Altere os valores de `id` (o código do vídeo no YouTube), `title` e `description` do novo bloco.
-
-  * **Para Editar um Vídeo:**
-
-      * Encontre o vídeo que deseja alterar e simplesmente edite o texto de seu `title` ou `description`.
-
-  * **Para Remover (Desativar) um Vídeo:**
-
-      * Encontre o bloco do vídeo e apague-o completamente (de `{` a `}`). Cuidado para remover também a vírgula do item anterior, caso o item apagado não seja o último da lista.
-
-### 3\. Gerenciando os Contatos
-
-Encontre a lista `"contacts": [ ... ]` no arquivo de configuração.
+### 3\. Informações Pessoais e Links Sociais (Rodapé)
 
 ```json
-"contacts": [
-  {
-    "type": "email",
-    "value": "seu-email@provedor.com",
-    "display": "seu-email@provedor.com"
-  },
-  {
-    "type": "whatsapp",
-    "value": "+5511999999999",
-    "display": "(11) 99999-9999"
-  }
-]
+"personalInfo": {
+    "name": "Matheus Araújo",
+    "socialLinks": [
+        { "icon": "fab fa-instagram", "url": "...", "status": "ativado" },
+        { "icon": "fab fa-linkedin", "url": "...", "status": "ativado" }
+    ]
+}
 ```
 
-  * **Para Adicionar um Contato:**
+  * `"name"`: Seu nome, que aparecerá no rodapé.
+  * `"socialLinks"`: A lista de suas redes sociais. Para desativar uma, mude seu `"status"` para `"desativado"`. Para adicionar uma nova, copie um bloco `{...}`, cole no final da lista (não esqueça a vírgula) e altere o `icon` (veja nomes no [Font Awesome](https://fontawesome.com/icons)) e a `url`.
 
-      * Siga os mesmos passos para adicionar um vídeo: copie um bloco, cole no final da lista, adicione a vírgula e edite as informações.
-      * `"type"`: Define o ícone. Opções disponíveis: `email`, `whatsapp`, `linkedin`, `github`, `instagram`.
-      * `"value"`: O dado real (seu e-mail, seu número com código do país, o link completo).
-      * `"display"`: O texto que aparecerá no botão.
+### 4\. Gerenciando Seções e Conteúdos
 
-  * **Para Remover (Desativar) um Contato:**
+#### Serviços ("O Que Eu Faço")
 
-      * Simplesmente apague o bloco correspondente da lista. O site não irá mais exibir essa opção de contato.
+```json
+"services": {
+    "status": "ativado",
+    "title": "O Que Eu Faço",
+    "items": [
+        { "icon": "fas fa-film", "title": "Edição", "description": "...", "status": "ativado" }
+    ]
+}
+```
+
+  * Para esconder a seção inteira, mude o `"status"` principal para `"desativado"`.
+  * Para esconder um item específico da lista, mude o `"status"` daquele item para `"desativado"`.
+
+#### Vídeos (Portfólio)
+
+```json
+"videos": {
+    "status": "ativado",
+    "title": "Projetos Recentes",
+    "items": [
+        {
+            "id": "dQw4w9WgXcQ",
+            "title": "Comercial Cinematográfico",
+            "description": "Projeto para a marca X.",
+            "status": "ativado",
+            "featured": true
+        }
+    ]
+}
+```
+
+  * `"status"`: Use `"desativado"` para esconder a seção de portfólio inteira.
+  * `"id"`: O código do vídeo do YouTube. Ex: na URL `https://www.youtube.com/watch?v=dQw4w9WgXcQ`, o ID é `dQw4w9WgXcQ`.
+  * `"featured"`: Mude para `true` se quiser que o vídeo apareça no carrossel principal da página. `false` fará com que ele apareça apenas na galeria "Ver Todos os Projetos".
+
+#### Depoimentos e Contatos
+
+O funcionamento é o mesmo das outras seções, usando `"status": "ativado"` ou `"desativado"` para controlar a visibilidade da seção inteira ou de itens individuais.
 
 ### ⚠️ Pontos de Atenção (Evitando Erros)
 
-> **Atenção à Vírgula:** Em uma lista, todos os itens (blocos `{...}`) devem ter uma vírgula após eles, **exceto o último**. Um erro de vírgula é a causa mais comum de quebra do site.
+> **Atenção à Vírgula:** Dentro de uma lista `[ ... ]`, todos os blocos `{...}` devem ter uma vírgula no final, **exceto o último**. Um erro de vírgula é a causa mais comum de quebra do site.
+>
+> **Cuidado com as Aspas:** Todo texto, tanto as chaves (`"title"`) quanto os valores (`"Meu Título"`), deve estar entre aspas duplas `""`.
 
-> **Cuidado com as Aspas:** Todo texto (chaves e valores) deve estar entre aspas duplas `""`.
+Se o site ficar em branco após uma alteração, o `config.json` provavelmente ficou com a sintaxe inválida. Copie e cole todo o conteúdo dele em um **[Validador de JSON online](https://jsonlint.com/)** para encontrar o erro facilmente.
 
-Se o site ficar em branco após uma alteração, provavelmente há um erro de sintaxe no `config.json`. Você pode usar um [Validador de JSON online](https://jsonlint.com/) para encontrar o erro facilmente.
+## 💻 Desenvolvimento Local
+
+Para visualizar suas alterações em tempo real enquanto edita os arquivos, recomendamos usar a extensão **Live Server** no **Visual Studio Code**.
+
+1.  Instale a extensão [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) no VS Code.
+2.  Abra a pasta do projeto no VS Code.
+3.  Clique com o botão direito no arquivo `index.html` e selecione "Open with Live Server".
+4.  Seu navegador abrirá o site, e ele será recarregado automaticamente toda vez que você salvar um arquivo.
 
 ## 🚀 Publicação (Deploy)
 
 Este projeto está pronto para ser publicado gratuitamente com o **GitHub Pages**.
 
-1.  Envie todos os arquivos do projeto (`index.html`, `style.css`, `monitor.js`, `config.json`) para um novo repositório no seu GitHub.
+1.  Envie todos os arquivos do projeto para um novo repositório no seu GitHub.
 2.  No seu repositório, vá em **Settings \> Pages**.
 3.  Na seção "Build and deployment", em "Source", selecione **"Deploy from a branch"**.
 4.  Selecione a branch `main` (ou `master`) e a pasta `/ (root)`. Clique em **"Save"**.
-5.  Aguarde alguns minutos e seu site estará no ar\!
+5.  Aguarde alguns minutos. O link do seu site ao vivo aparecerá nessa mesma página.
 
 ## 📄 Licença
 
