@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         renderContent(config);
-        AOS.init({ duration: 800, once: true });
+        AOS.init({ duration: 800, once: false });
 
     } catch (error) {
         console.error("Could not initialize site:", error);

@@ -630,3 +630,10 @@ body.modal-open {
         padding: 1.5rem 1rem;
     }
 }
+
+.contact-item {
+    min-width: 280px;
+    /* Define uma largura mínima para os botões de contato */
+    text-align: center;
+    /* Garante que o texto fique centralizado no botão */
+}
