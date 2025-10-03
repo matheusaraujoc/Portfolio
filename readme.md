@@ -37,9 +37,9 @@ Um template de site moderno, responsivo e dinâmico, projetado para editores de 
 
 ## ⚙️ Como Configurar e Personalizar
 
-> **A Regra de Ouro:** Toda a personalização do conteúdo do site é feita em um único arquivo: `config.json`. Abra este arquivo para começar.
+> **A Regra básica:** Toda a personalização do conteúdo do site é feita em um único arquivo: `config.json`. Abra este arquivo para começar.
 
-> **Reset do arquivo config.json** No repositório tem um arquivo chamado config_reset.json que jamais deve ser alterado. Caso ocorra um erro no arquivo config.json que você modificou, copie o conteúdo do config_reset.json e cole no config.json e assim ele irá voltar ao padrão.
+> **Reset do arquivo config.json:** No repositório tem um arquivo chamado config_reset.json que jamais deve ser alterado. Caso ocorra um erro no arquivo config.json que você modificou, copie o conteúdo do config_reset.json e cole no config.json e assim ele irá voltar ao padrão.
 
 ### 1\. Animação de Scroll (Background)
 
