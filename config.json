@@ -8,6 +8,10 @@
         "headline": "Transformando Ideias em Vídeos Memoráveis",
         "subheadline": "Edição de vídeo que captura a atenção, conta uma história e gera resultados."
     },
+    "mainHeader": {
+        "status": "ativado",
+        "displayName": "Matheus Araújo"
+    },
     "personalInfo": {
         "name": "Matheus Araújo",
         "socialLinks": [

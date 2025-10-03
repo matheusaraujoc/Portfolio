@@ -2,13 +2,14 @@
 
 Um template de site moderno, responsivo e dinâmico, projetado para editores de vídeo, motion designers e criadores de conteúdo. O principal diferencial deste projeto é a facilidade de atualização: todo o conteúdo, desde textos e vídeos até a ativação de seções inteiras, é gerenciado através de um único arquivo de configuração (`config.json`), sem a necessidade de tocar em código HTML, CSS ou JavaScript.
 
+
 ## ✨ Funcionalidades
 
   * 🎨 **Design Moderno e Imersivo**: Visual atraente que se adapta perfeitamente a desktops, tablets e celulares.
   * 🎬 **Animação de Scroll Interativa**: Uma sequência de imagens que cria um efeito de vídeo conforme o usuário rola a página, com fallback para conexões lentas.
   * 🔧 **Gerenciamento 100% Centralizado**: Todas as informações (textos, vídeos, serviços, contatos, links sociais) são controladas a partir de um único arquivo `config.json`.
   * 🚀 **Otimizado para Performance**: Construído com tecnologias web essenciais e bibliotecas leves, garantindo um carregamento rápido e uma experiência fluida.
-  * modular **Conteúdo Modular**: Ative ou desative seções inteiras do site (Serviços, Depoimentos, etc.) com uma única chave no arquivo de configuração.
+  * modular **Conteúdo Modular**: Ative ou desative seções inteiras do site (Cabeçalho do Topo, Serviços, Depoimentos, etc.) com uma única chave no arquivo de configuração.
   * 🌐 **Pronto para Deploy**: O projeto está configurado para ser publicado gratuitamente com o GitHub Pages em poucos minutos.
 
 ## 📁 Estrutura do Projeto
@@ -38,6 +39,8 @@ Um template de site moderno, responsivo e dinâmico, projetado para editores de 
 
 > **A Regra de Ouro:** Toda a personalização do conteúdo do site é feita em um único arquivo: `config.json`. Abra este arquivo para começar.
 
+> **Reset do arquivo config.json** No repositório tem um arquivo chamado config_reset.json que jamais deve ser alterado. Caso ocorra um erro no arquivo config.json que você modificou, copie o conteúdo do config_reset.json e cole no config.json e assim ele irá voltar ao padrão.
+
 ### 1\. Animação de Scroll (Background)
 
 Esta é a primeira seção do `config.json`. Ela controla a animação de imagens que acontece no início do site.
@@ -65,7 +68,21 @@ Esta é a primeira seção do `config.json`. Ela controla a animação de imagen
 
   * Basta editar os textos entre aspas para alterar os títulos principais do site.
 
-### 3\. Informações Pessoais e Links Sociais (Rodapé)
+### 3\. Cabeçalho do Topo (Seu Nome)
+
+Esta nova seção controla a exibição do seu nome fixo no topo da página.
+
+```json
+"mainHeader": {
+    "status": "ativado",
+    "displayName": "Matheus Araújo"
+}
+```
+
+  * `"status"`: Mude para `"desativado"` se não quiser que o seu nome apareça no cabeçalho fixo do topo.
+  * `"displayName"`: Edite o texto entre aspas para mudar o nome que será exibido no cabeçalho.
+
+### 4\. Informações Pessoais e Links Sociais (Rodapé)
 
 ```json
 "personalInfo": {
@@ -77,10 +94,10 @@ Esta é a primeira seção do `config.json`. Ela controla a animação de imagen
 }
 ```
 
-  * `"name"`: Seu nome, que aparecerá no rodapé.
+  * `"name"`: Seu nome, que aparecerá no texto de copyright do rodapé.
   * `"socialLinks"`: A lista de suas redes sociais. Para desativar uma, mude seu `"status"` para `"desativado"`. Para adicionar uma nova, copie um bloco `{...}`, cole no final da lista (não esqueça a vírgula) e altere o `icon` (veja nomes no [Font Awesome](https://fontawesome.com/icons)) e a `url`.
 
-### 4\. Gerenciando Seções e Conteúdos
+### 5\. Gerenciando Seções e Conteúdos
 
 #### Serviços ("O Que Eu Faço")
 
@@ -89,7 +106,7 @@ Esta é a primeira seção do `config.json`. Ela controla a animação de imagen
     "status": "ativado",
     "title": "O Que Eu Faço",
     "items": [
-        { "icon": "fas fa-film", "title": "Edição", "description": "...", "status": "ativado" }
+        { "icon": "fas fa-film", "title": "Edição e Montagem", "description": "...", "status": "ativado" }
     ]
 }
 ```
@@ -119,9 +136,59 @@ Esta é a primeira seção do `config.json`. Ela controla a animação de imagen
   * `"id"`: O código do vídeo do YouTube. Ex: na URL `https://www.youtube.com/watch?v=dQw4w9WgXcQ`, o ID é `dQw4w9WgXcQ`.
   * `"featured"`: Mude para `true` se quiser que o vídeo apareça no carrossel principal da página. `false` fará com que ele apareça apenas na galeria "Ver Todos os Projetos".
 
-#### Depoimentos e Contatos
+#### Depoimentos ("O Que Meus Clientes Dizem")
 
-O funcionamento é o mesmo das outras seções, usando `"status": "ativado"` ou `"desativado"` para controlar a visibilidade da seção inteira ou de itens individuais.
+```json
+"testimonials": {
+    "status": "ativado",
+    "title": "O Que Meus Clientes Dizem",
+    "items": [
+        {
+            "quote": "O trabalho de edição superou todas as nossas expectativas. Profissionalismo e criatividade do início ao fim.",
+            "author": "João Silva",
+            "company": "CEO da Empresa X",
+            "status": "ativado"
+        }
+    ]
+}
+```
+
+  * **Para ativar/desativar a seção inteira:** Mude o `"status"` principal para `"ativado"` ou `"desativado"`.
+  * **Para adicionar um depoimento:**
+    1.  Copie um bloco de depoimento existente (de `{` a `}`).
+    2.  Cole o bloco no final da lista `items`, garantindo que haja uma vírgula `,` após o bloco anterior (se não for o último).
+    3.  Edite os valores de `"quote"` (o texto do depoimento), `"author"` e `"company"`.
+    4.  Defina o `"status"` do novo depoimento como `"ativado"`.
+  * **Para editar um depoimento:** Encontre o depoimento que deseja alterar e edite os textos de `"quote"`, `"author"` ou `"company"`.
+  * **Para remover (desativar) um depoimento:** Mude o `"status"` daquele depoimento para `"desativado"`. Se preferir removê-lo completamente, apague o bloco `{...}` inteiro da lista, lembrando-se de remover também a vírgula do item anterior, caso o item apagado não seja o último da lista.
+
+#### Contatos (Botões e E-mail para Copiar)
+
+```json
+"contacts": [
+    {
+        "type": "email",
+        "value": "seu-email@provedor.com",
+        "display": "Vamos criar juntos?",
+        "status": "ativado"
+    },
+    {
+        "type": "whatsapp",
+        "value": "+5511999999999",
+        "display": "WhatsApp",
+        "status": "ativado"
+    }
+]
+```
+
+  * **Para adicionar um contato:**
+      * Siga os mesmos passos para adicionar um depoimento: copie um bloco, cole no final da lista, adicione a vírgula e edite as informações.
+      * `"type"`: Define o tipo de contato e o link. Opções disponíveis: `email`, `whatsapp`. (Outros tipos como `linkedin`, `github`, `instagram` podem ser adicionados mas exigem ajuste no código JavaScript para funcionar como link direto).
+      * `"value"`: O dado real (seu e-mail, seu número de WhatsApp com código do país no formato `+55DDICARACTERES`).
+      * `"display"`: O texto que aparecerá no botão.
+      * `"status"`: Ative ou desative o contato.
+  * **Observação sobre o E-mail:** O seu e-mail configurado aqui também será exibido no rodapé com um botão de "Copiar" para facilitar o acesso dos visitantes que preferem não usar o link `mailto:`.
+  * **Para remover (desativar) um contato:** Mude o `"status"` daquele contato para `"desativado"` ou apague o bloco `{...}` correspondente da lista.
 
 ### ⚠️ Pontos de Atenção (Evitando Erros)
 
@@ -152,7 +219,7 @@ Este projeto está pronto para ser publicado gratuitamente com o **GitHub Pages*
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Este projeto está sob a licença Creative Commons BY-NC-SA 4.0. Veja o arquivo `LICENSE` para mais detalhes.
 
 -----
 

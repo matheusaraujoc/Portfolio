@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (config.scrollAnimation && config.scrollAnimation.status === 'ativado') {
             await initializeScrollAnimation(config.scrollAnimation);
         } else {
-            // Se a animação estiver desativada no JSON, esconde as camadas
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('scroll-animation-container').style.display = 'none';
         }
@@ -21,23 +20,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// =============================================================
-// FUNÇÃO DE ANIMAÇÃO COM A NOVA LÓGICA DE TIMEOUT
-// =============================================================
 async function initializeScrollAnimation(animationConfig) {
-    // 1. DEFINIR UM TEMPO LIMITE (em milissegundos). 8000ms = 8 segundos.
-    // Você pode ajustar este valor como quiser.
+    // ... (esta função continua igual, sem alterações)
     const LOAD_TIMEOUT = 8000;
-
     const canvas = document.getElementById('hero-canvas');
     const context = canvas.getContext('2d');
     const { frameCount, folder } = animationConfig;
     const images = [];
     const imagePromises = [];
-
     const getImagePath = (frame) => `${folder}frame (${frame}).jpg`;
-
-    // Inicia o pré-carregamento das imagens
     for (let i = 1; i <= frameCount; i++) {
         const img = new Image();
         const promise = new Promise((resolve, reject) => {
@@ -48,22 +39,12 @@ async function initializeScrollAnimation(animationConfig) {
         img.src = getImagePath(i);
         images.push(img);
     }
-
-    // 2. CRIAR UMA PROMESSA DE TIMEOUT que falhará após o tempo definido
     const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => reject(new Error('Image load timeout')), LOAD_TIMEOUT);
     });
-
     try {
-        // 3. USAR Promise.race para ver quem termina primeiro: o carregamento ou o timeout
-        await Promise.race([
-            Promise.all(imagePromises),
-            timeoutPromise
-        ]);
-
-        // --- SUCESSO: AS IMAGENS CARREGARAM A TEMPO ---
+        await Promise.race([Promise.all(imagePromises), timeoutPromise]);
         console.log("Animação de scroll carregada com sucesso!");
-
         const drawImage = (frameIndex) => {
             const img = images[frameIndex];
             if (!img) return;
@@ -73,56 +54,64 @@ async function initializeScrollAnimation(animationConfig) {
             const centerShift_x = (canvas.width - img.width * ratio) / 2;
             const centerShift_y = (canvas.height - img.height * ratio) / 2;
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, 0, 0, img.width, img.height,
-                centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+            context.drawImage(img, 0, 0, img.width, img.height, centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
         };
-
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             updateImageOnScroll();
         };
-
         const updateImageOnScroll = () => {
             const scrollTop = document.documentElement.scrollTop;
             const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
             const scrollFraction = scrollTop / maxScrollTop;
-            let frameIndex = Math.min(
-                frameCount - 1,
-                Math.floor(scrollFraction * frameCount)
-            );
+            let frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
             if (isNaN(frameIndex)) frameIndex = 0;
             requestAnimationFrame(() => drawImage(frameIndex));
         };
-
         window.addEventListener('scroll', updateImageOnScroll);
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
-
     } catch (error) {
-        // --- FALHA (TIMEOUT): AS IMAGENS DEMORARAM DEMAIS ---
         console.warn(error.message, `- Ativando fundo estático como fallback.`);
-
         const animationContainer = document.getElementById('scroll-animation-container');
         const canvasElement = document.getElementById('hero-canvas');
-
-        // Aplica a primeira imagem da sequência como fundo estático
         animationContainer.style.backgroundImage = `url('${getImagePath(1)}')`;
         animationContainer.style.backgroundSize = 'cover';
         animationContainer.style.backgroundPosition = 'center center';
-
-        // Esconde o canvas que não será usado
         if (canvasElement) canvasElement.style.display = 'none';
     } finally {
-        // Este bloco é executado SEMPRE, tanto em caso de sucesso quanto de timeout
         const loadingScreen = document.getElementById('loading-screen');
         loadingScreen.style.opacity = '0';
         setTimeout(() => loadingScreen.style.display = 'none', 500);
     }
 }
 
+// =============================================================
+// LÓGICA ATUALIZADA ABAIXO
+// =============================================================
+
+// NOVA FUNÇÃO para renderizar o cabeçalho do topo
+function renderHeader(config) {
+    const headerElement = document.querySelector('.main-header');
+    if (!headerElement) return;
+
+    // Verifica se a seção mainHeader existe e está ativada no config.json
+    if (config.mainHeader && config.mainHeader.status === 'ativado') {
+        const nameElement = headerElement.querySelector('.header-name');
+        if (nameElement) {
+            nameElement.textContent = config.mainHeader.displayName;
+        }
+    } else {
+        // Se não estiver ativada, esconde o cabeçalho inteiro
+        headerElement.style.display = 'none';
+    }
+}
 
 function renderContent(config) {
+    // Adicionamos a chamada para a nova função aqui
+    renderHeader(config);
+
     document.querySelector('.hero-headline').textContent = config.hero.headline;
     document.querySelector('.hero-subheadline').textContent = config.hero.subheadline;
 
@@ -135,6 +124,7 @@ function renderContent(config) {
 }
 
 function renderPersonalInfo(config) {
+    // Esta função agora não mexe mais no cabeçalho do topo, apenas no rodapé
     const info = config.personalInfo;
     const contacts = config.contacts || [];
 
@@ -177,12 +167,11 @@ function renderPersonalInfo(config) {
     }
 }
 
+// ... O resto das funções (renderServices, renderVideos, etc.) continuam iguais ...
 function renderServices(servicesConfig) {
     document.querySelector('#services .section-title').textContent = servicesConfig.title;
     const servicesGrid = document.getElementById('services-grid');
-
     const activeServices = servicesConfig.items.filter(item => item.status === "ativado");
-
     const servicesHTML = activeServices.map((service, index) => `
         <div class="service-card" data-aos="fade-up" data-aos-delay="${index * 100}">
             <div class="icon"><i class="${service.icon}"></i></div>
@@ -190,7 +179,6 @@ function renderServices(servicesConfig) {
             <p>${service.description}</p>
         </div>`
     ).join('');
-
     servicesGrid.innerHTML = servicesHTML;
 }
 
@@ -198,9 +186,7 @@ function renderVideos(videosConfig) {
     document.querySelector('#portfolio .section-title').textContent = videosConfig.title;
     const carouselWrapper = document.querySelector('#video-carousel .swiper-wrapper');
     const modalGrid = document.getElementById('modal-video-grid');
-
     const activeVideos = videosConfig.items.filter(item => item.status === "ativado");
-
     function videoCardHTML(video) {
         return `
         <div class="video-card">
@@ -215,17 +201,13 @@ function renderVideos(videosConfig) {
             </div>
         </div>`;
     }
-
     const allVideosHTML = activeVideos.map(video => videoCardHTML(video)).join('');
-
     const featuredVideosHTML = activeVideos
         .filter(video => video.featured)
         .map(video => `<div class="swiper-slide">${videoCardHTML(video)}</div>`)
         .join('');
-
     modalGrid.innerHTML = allVideosHTML;
     carouselWrapper.innerHTML = featuredVideosHTML;
-
     new Swiper('#video-carousel', {
         loop: activeVideos.filter(v => v.featured).length > 2,
         slidesPerView: 1,
@@ -240,29 +222,23 @@ function renderVideos(videosConfig) {
             1200: { slidesPerView: 3 }
         }
     });
-
     const modal = document.getElementById('gallery-modal');
     const openButton = document.getElementById('view-more-button');
     const closeButton = document.getElementById('close-modal-button');
-
     openButton.addEventListener('click', () => {
         modal.classList.add('active');
         document.body.classList.add('modal-open');
     });
-
     closeButton.addEventListener('click', () => {
         modal.classList.remove('active');
         document.body.classList.remove('modal-open');
     });
 }
 
-
 function renderTestimonials(testimonialsConfig) {
     document.querySelector('#testimonials .section-title').textContent = testimonialsConfig.title;
     const testimonialsGrid = document.getElementById('testimonials-grid');
-
     const activeTestimonials = testimonialsConfig.items.filter(item => item.status === "ativado");
-
     const testimonialsHTML = activeTestimonials.map((testimonial, index) => `
         <div class="testimonial-card" data-aos="fade-up" data-aos-delay="${index * 100}">
             <p class="quote">“${testimonial.quote}”</p>
@@ -272,24 +248,19 @@ function renderTestimonials(testimonialsConfig) {
             </div>
         </div>`
     ).join('');
-
     testimonialsGrid.innerHTML = testimonialsHTML;
 }
 
 function renderContacts(contacts) {
     const contactList = document.getElementById('contact-list');
     const activeContacts = contacts.filter(item => item.status === "ativado");
-
     const contactsHTML = activeContacts.map(contact => {
         const href = contact.type === 'email'
             ? `mailto:${contact.value}?subject=Contato%20pelo%20Portfólio`
             : `https://wa.me/${contact.value.replace(/\D/g, '')}`;
-
         const target = contact.type === 'email' ? '' : 'target="_blank"';
-
         return `<a href="${href}" ${target} class="contact-item">${contact.display}</a>`;
     }).join('');
-
     contactList.innerHTML = contactsHTML;
 }
 

@@ -664,3 +664,50 @@ body.modal-open {
     min-width: 280px;
     text-align: center;
 }
+
+/* ================================= */
+/* NOVO CABEÇALHO PRINCIPAL (NOME)   */
+/* ================================= */
+
+.main-header {
+    position: fixed;
+    /* Fica fixo no topo da tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    /* Garante que fique acima da animação de scroll */
+    padding: 1rem 0;
+    background-color: rgba(13, 13, 13, 0.5);
+    /* Fundo escuro semitransparente */
+    -webkit-backdrop-filter: blur(8px);
+    /* Efeito de vidro fosco */
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* --- Ajuste de Responsividade para o novo cabeçalho --- */
+@media (max-width: 768px) {
+    .main-header {
+        padding: 0.8rem 0;
+    }
+
+    .header-name {
+        font-size: 1.2rem;
+    }
+}
