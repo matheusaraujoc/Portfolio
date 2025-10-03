@@ -134,7 +134,7 @@ function renderVideos(videosConfig) {
 
     const activeVideos = videosConfig.items.filter(item => item.status === "ativado");
 
-    // Função auxiliar para gerar o HTML do card (COM A NOVA ESTRUTURA)
+    // Função auxiliar para gerar o HTML do card (COM A NOVA ESTRUTURA .video-card-inner)
     function videoCardHTML(video) {
         return `
         <div class="video-card">
@@ -189,6 +189,7 @@ function renderVideos(videosConfig) {
         document.body.classList.remove('modal-open');
     });
 }
+
 
 function renderTestimonials(testimonialsConfig) {
     document.querySelector('#testimonials .section-title').textContent = testimonialsConfig.title;

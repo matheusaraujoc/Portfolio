@@ -40,7 +40,7 @@ body.modal-open {
 
 .section-title {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: clamp(2.2rem, 5vw, 3rem);
     font-weight: 900;
     text-align: center;
     margin-bottom: 4rem;
@@ -126,11 +126,29 @@ body.modal-open {
 
 .hero-headline {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    /* 1. Tamanho de fonte fluido que se adapta à largura da tela. 
+           7.5vw = 7.5% da largura da tela. Em um iPhone de 375px, isso dá ~28px */
+    font-size: 6.0vw;
+
+    /* 2. PROPRIEDADE MAIS IMPORTANTE: Desliga a hifenização automática */
+    -webkit-hyphens: none;
+    /* Para Safari, Chrome etc. */
+    -ms-hyphens: none;
+    /* Para Microsoft Browsers */
+    hyphens: none;
+    /* Padrão */
+
+    /* 3. Garante que a palavra não seja quebrada no meio de forma alguma */
+    word-break: keep-all;
+
+    /* 4. Propriedades anteriores mantidas por segurança */
+    overflow-wrap: break-word;
+    letter-spacing: normal;
+
+    font-weight: 750;
+    /* Deixa as letras maiusculas, porém causa quebra de linha em palavras*/
+    /*text-transform: uppercase;*/
+
 }
 
 .hero-subheadline {
@@ -139,6 +157,11 @@ body.modal-open {
     margin: 1rem auto 2.5rem;
     max-width: 650px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Correção para o bug de hover na aba do navegador no botão Hero */
+.hero .cta-button {
+    isolation: isolate;
 }
 
 /* SEÇÕES GERAIS */
@@ -197,7 +220,7 @@ body.modal-open {
     line-height: 1.6;
 }
 
-/* PORTFOLIO E CARROSSEL - CORREÇÃO APLICADA AQUI */
+/* PORTFOLIO E CARROSSEL - CORREÇÃO DE HOVER APLICADA AQUI */
 .portfolio-section .container {
     max-width: 1400px;
 }
@@ -239,7 +262,6 @@ body.modal-open {
     /* Mantém o corte */
     display: flex;
     flex-direction: column;
-    /* Remove a transição e o hover daqui */
 }
 
 /* .video-card-inner é o novo container que CRESCE */
@@ -370,7 +392,7 @@ body.modal-open {
 
 .gallery-modal-content h2 {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: clamp(2.2rem, 5vw, 3rem);
     text-align: center;
     margin-bottom: 3rem;
 }
@@ -380,6 +402,7 @@ body.modal-open {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     align-items: stretch;
     gap: 2rem;
+    /* Espaçamento adicionado */
 }
 
 .close-modal-button {
@@ -409,7 +432,7 @@ body.modal-open {
 
 .contact-title {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     text-align: center;
 }
 
@@ -472,24 +495,7 @@ body.modal-open {
     color: var(--accent-color);
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 768px) {
-
-    .section-title,
-    .gallery-modal-content h2 {
-        font-size: 2.2rem;
-    }
-
-    .hero-headline {
-        font-size: clamp(2rem, 10vw, 3rem);
-    }
-
-    .swiper {
-        padding: 0;
-    }
-}
-
-/* ===== Normalização para os botões (hero + view-more + contact items) ===== */
+/* BOTÕES */
 .cta-button,
 .contact-item,
 .view-more-button {
@@ -537,4 +543,90 @@ body.modal-open {
 .view-more-button:hover::before {
     transform-origin: 0% 50%;
     transform: scaleX(1);
+}
+
+
+/* ========================================================================== */
+/* RESPONSIVIDADE - PONTO DE QUEBRA PARA TABLETS E CELULARES GRANDES          */
+/* ========================================================================== */
+@media (max-width: 768px) {
+
+    /* --- AJUSTES GERAIS --- */
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .services-section,
+    .portfolio-section,
+    .testimonials-section,
+    .contact-section,
+    .main-footer {
+        padding: 4rem 0;
+    }
+
+    /* --- AJUSTES DA SEÇÃO HERO --- */
+    .hero-content {
+        padding: 1.5rem;
+        width: 90%;
+    }
+
+    .hero-subheadline {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 1rem auto 2rem;
+    }
+
+    /* --- AJUSTES DOS GRIDS --- */
+    .services-grid-container,
+    .testimonials-grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* --- AJUSTES DO PORTFOLIO E MODAL --- */
+    .swiper {
+        padding: 0;
+    }
+
+    #modal-video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* --- AJUSTES DO CONTATO E BOTÕES FLUTUANTES --- */
+    .contact-list-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* ========================================================================== */
+/* RESPONSIVIDADE ADICIONAL PARA CELULARES PEQUENOS                           */
+/* ========================================================================== */
+@media (max-width: 480px) {
+
+    /* --- Correção Específica para o Título do Hero --- */
+    .hero-headline {
+        /* 1. Reduz drasticamente o tamanho da fonte para caber em telas estreitas */
+        font-size: clamp(1.6rem, 9vw, 2.2rem);
+
+        /* 2. Força a quebra de palavras muito longas para evitar que cortem na lateral */
+        overflow-wrap: break-word;
+        word-break: break-word;
+        /* Garante compatibilidade */
+
+        /* 3. Reduz o espaçamento entre letras para compactar o texto */
+        letter-spacing: normal;
+    }
+
+    .hero-content {
+        /* 4. Reduz ainda mais o padding interno para dar o máximo de espaço ao texto */
+        padding: 1.5rem 1rem;
+    }
 }
