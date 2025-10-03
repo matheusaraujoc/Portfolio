@@ -1,9 +1,3 @@
-Com certeza\! Criar um `README.md` completo e bem formatado é a melhor maneira de documentar um projeto no GitHub. Ele não só ajuda você a lembrar como tudo funciona, mas também torna o projeto mais profissional.
-
-Aqui está uma documentação completa em formato Markdown. Você pode copiar e colar este conteúdo diretamente em um arquivo chamado `README.md` na raiz do seu projeto.
-
------
-
 # Portfolio de Edição de Vídeos
 
 Um template de site de portfólio moderno, responsivo e minimalista, projetado para editores de vídeo, motion designers e criadores de conteúdo. O principal diferencial deste projeto é a facilidade de atualização: todo o conteúdo do site é gerenciado através de um único arquivo de configuração (`config.json`), sem a necessidade de tocar em código HTML ou JavaScript.
