@@ -2,11 +2,6 @@
 
 Um template de site moderno, responsivo e dinâmico, projetado para editores de vídeo, motion designers e criadores de conteúdo. O principal diferencial deste projeto é a facilidade de atualização: todo o conteúdo, desde textos e vídeos até a ativação de seções inteiras, é gerenciado através de um único arquivo de configuração (`config.json`), sem a necessidade de tocar em código HTML, CSS ou JavaScript.
 
-**[➡️ Ver Demo ao Vivo](https://www.google.com/search?q=https://SEU-USUARIO-GITHUB.github.io/SEU-REPOSITORIO/)**
-*(Lembre-se de substituir pelo link do seu site publicado\!)*
-
-*(Dica: Tire uma captura de tela do seu site, adicione ao repositório e substitua o link acima para exibir uma prévia aqui.)*
-
 ## ✨ Funcionalidades
 
   * 🎨 **Design Moderno e Imersivo**: Visual atraente que se adapta perfeitamente a desktops, tablets e celulares.

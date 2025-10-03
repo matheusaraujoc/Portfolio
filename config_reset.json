@@ -1,54 +1,122 @@
 {
+    "scrollAnimation": {
+        "status": "ativado",
+        "frameCount": 120,
+        "folder": "assets/scroll-sequence/"
+    },
+    "hero": {
+        "headline": "Transformando Ideias em Vídeos Memoráveis",
+        "subheadline": "Edição de vídeo que captura a atenção, conta uma história e gera resultados."
+    },
     "personalInfo": {
-        "name": "Seu Nome Completo",
-        "subtitle": "Editor de Vídeos | Motion Designer | Storyteller Visual",
+        "name": "Matheus Araújo",
         "socialLinks": [
             {
                 "icon": "fab fa-instagram",
-                "url": "https://instagram.com/seu-usuario"
+                "url": "https://instagram.com/seu-usuario",
+                "status": "desativado"
             },
             {
                 "icon": "fab fa-linkedin",
-                "url": "https://linkedin.com/in/seu-usuario"
+                "url": "https://www.linkedin.com/in/matheusaraujoc",
+                "status": "ativado"
             },
             {
                 "icon": "fab fa-vimeo-v",
-                "url": "https://vimeo.com/seu-usuario"
+                "url": "https://vimeo.com/seu-usuario",
+                "status": "desativado"
             }
         ]
     },
-    "videos": [
-        {
-            "id": "dQw4w9WgXcQ",
-            "title": "Comercial Cinematográfico de Carro",
-            "description": "Edição, color grading e sound design para um comercial de carro. O foco foi criar uma atmosfera dinâmica e premium."
-        },
-        {
-            "id": "3g34gSmTc3A",
-            "title": "Mini-Documentário: O Artesão",
-            "description": "Um curta documental sobre a vida de um artesão local. A edição buscou um ritmo mais contemplativo para valorizar a narrativa."
-        },
-        {
-            "id": "jfKfPfyJRdk",
-            "title": "Animação de Logo (Motion Graphics)",
-            "description": "Criação de uma animação de logo para uma startup de tecnologia, utilizando Adobe After Effects para um resultado moderno e fluido."
-        }
-    ],
+    "services": {
+        "status": "ativado",
+        "title": "O Que Eu Faço",
+        "items": [
+            {
+                "icon": "fas fa-film",
+                "title": "Edição e Montagem",
+                "description": "Cortes precisos, ritmo dinâmico e uma montagem que valoriza sua narrativa do início ao fim.",
+                "status": "ativado"
+            },
+            {
+                "icon": "fas fa-palette",
+                "title": "Color Grading",
+                "description": "Tratamento de cor profissional que cria a atmosfera certa e dá vida à sua filmagem.",
+                "status": "ativado"
+            },
+            {
+                "icon": "fas fa-rocket",
+                "title": "Motion Graphics",
+                "description": "Animações, legendas e elementos gráficos que adicionam um toque moderno e profissional.",
+                "status": "ativado"
+            }
+        ]
+    },
+    "videos": {
+        "status": "ativado",
+        "title": "Projetos Recentes",
+        "items": [
+            {
+                "id": "dQw4w9WgXcQ",
+                "title": "Comercial Cinematográfico",
+                "description": "Projeto para a marca X.",
+                "status": "ativado",
+                "featured": true
+            },
+            {
+                "id": "3g34gSmTc3A",
+                "title": "Mini-Documentário",
+                "description": "História do artesão Y.",
+                "status": "ativado",
+                "featured": true
+            },
+            {
+                "id": "jfKfPfyJRdk",
+                "title": "Animação de Logo",
+                "description": "Motion Graphics para a empresa Z.",
+                "status": "ativado",
+                "featured": true
+            },
+            {
+                "id": "z1Q_A_8JSME",
+                "title": "Vídeo Corporativo",
+                "description": "Vídeo institucional para a empresa ABC.",
+                "status": "ativado",
+                "featured": false
+            },
+            {
+                "id": "Scxs7L0hZso",
+                "title": "Videoclipe Musical",
+                "description": "Clipe para a banda TKO.",
+                "status": "ativado",
+                "featured": false
+            }
+        ]
+    },
+    "testimonials": {
+        "status": "desativado",
+        "title": "O Que Meus Clientes Dizem",
+        "items": [
+            {
+                "quote": "O trabalho de edição superou todas as nossas expectativas. Profissionalismo e criatividade do início ao fim.",
+                "author": "João Silva",
+                "company": "CEO da Empresa X",
+                "status": "ativado"
+            }
+        ]
+    },
     "contacts": [
         {
             "type": "email",
-            "value": "seu-email@provedor.com",
-            "display": "seu-email@provedor.com"
+            "value": "mscarvalho0523@gmail.com",
+            "display": "Vamos criar juntos?",
+            "status": "ativado"
         },
         {
             "type": "whatsapp",
-            "value": "+5511999999999",
-            "display": "(11) 99999-9999"
-        },
-        {
-            "type": "linkedin",
-            "value": "https://www.linkedin.com/in/seu-usuario/",
-            "display": "Perfil no LinkedIn"
+            "value": "+5598988827057",
+            "display": "WhatsApp",
+            "status": "ativado"
         }
     ]
 }
