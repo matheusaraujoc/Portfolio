@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function initializeScrollAnimation(animationConfig) {
     const canvas = document.getElementById('hero-canvas');
     const context = canvas.getContext('2d');
-    const { frameCount, folder, filenamePrefix } = animationConfig;
+    const { frameCount, folder } = animationConfig;
     const images = [];
     const imagePromises = [];
 
@@ -97,27 +97,34 @@ function renderContent(config) {
 function renderPersonalInfo(info) {
     document.querySelector('.footer-name').textContent = info.name;
     const socialContainer = document.querySelector('.social-links-footer');
-    socialContainer.innerHTML = '';
-    info.socialLinks.filter(link => link.status === "ativado").forEach(link => {
+
+    const activeLinks = info.socialLinks.filter(link => link.status === "ativado");
+
+    const linksHTML = activeLinks.map(link => {
         const socialName = link.icon.split('fa-')[1] || 'link';
         const accessibleLabel = socialName.charAt(0).toUpperCase() + socialName.slice(1);
-        socialContainer.innerHTML += `<a href="${link.url}" target="_blank" aria-label="Visite nosso perfil no ${accessibleLabel}"><i class="${link.icon}"></i></a>`;
-    });
+        return `<a href="${link.url}" target="_blank" aria-label="Visite nosso perfil no ${accessibleLabel}"><i class="${link.icon}"></i></a>`;
+    }).join('');
+
+    socialContainer.innerHTML = linksHTML;
     document.getElementById('current-year').textContent = new Date().getFullYear();
 }
 
 function renderServices(servicesConfig) {
     document.querySelector('#services .section-title').textContent = servicesConfig.title;
     const servicesGrid = document.getElementById('services-grid');
-    servicesGrid.innerHTML = '';
-    servicesConfig.items.filter(item => item.status === "ativado").forEach((service, index) => {
-        servicesGrid.innerHTML += `
-            <div class="service-card" data-aos="fade-up" data-aos-delay="${index * 100}">
-                <div class="icon"><i class="${service.icon}"></i></div>
-                <h3>${service.title}</h3>
-                <p>${service.description}</p>
-            </div>`;
-    });
+
+    const activeServices = servicesConfig.items.filter(item => item.status === "ativado");
+
+    const servicesHTML = activeServices.map((service, index) => `
+        <div class="service-card" data-aos="fade-up" data-aos-delay="${index * 100}">
+            <div class="icon"><i class="${service.icon}"></i></div>
+            <h3>${service.title}</h3>
+            <p>${service.description}</p>
+        </div>`
+    ).join('');
+
+    servicesGrid.innerHTML = servicesHTML;
 }
 
 function renderVideos(videosConfig) {
@@ -125,14 +132,13 @@ function renderVideos(videosConfig) {
     const carouselWrapper = document.querySelector('#video-carousel .swiper-wrapper');
     const modalGrid = document.getElementById('modal-video-grid');
 
-    carouselWrapper.innerHTML = '';
-    modalGrid.innerHTML = '';
-
     const activeVideos = videosConfig.items.filter(item => item.status === "ativado");
 
-    activeVideos.forEach(video => {
-        const videoCardHTML = `
-            <div class="video-card">
+    // Função auxiliar para gerar o HTML do card (COM A NOVA ESTRUTURA)
+    function videoCardHTML(video) {
+        return `
+        <div class="video-card">
+            <div class="video-card-inner"> 
                 <div class="video-embed-container">
                     <iframe src="https://www.youtube.com/embed/${video.id}" title="${video.title}" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
@@ -140,20 +146,22 @@ function renderVideos(videosConfig) {
                     <h3>${video.title}</h3>
                     <p>${video.description}</p>
                 </div>
-            </div>`;
+            </div>
+        </div>`;
+    }
 
-        modalGrid.innerHTML += videoCardHTML;
+    const allVideosHTML = activeVideos.map(video => videoCardHTML(video)).join('');
 
-        if (video.featured) {
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide';
-            slide.innerHTML = videoCardHTML;
-            carouselWrapper.appendChild(slide);
-        }
-    });
+    const featuredVideosHTML = activeVideos
+        .filter(video => video.featured)
+        .map(video => `<div class="swiper-slide">${videoCardHTML(video)}</div>`)
+        .join('');
+
+    modalGrid.innerHTML = allVideosHTML;
+    carouselWrapper.innerHTML = featuredVideosHTML;
 
     new Swiper('#video-carousel', {
-        loop: activeVideos.filter(v => v.featured).length > 2, // Ativa o loop só se houver slides suficientes
+        loop: activeVideos.filter(v => v.featured).length > 2,
         slidesPerView: 1,
         spaceBetween: 30,
         grabCursor: true,
@@ -185,26 +193,33 @@ function renderVideos(videosConfig) {
 function renderTestimonials(testimonialsConfig) {
     document.querySelector('#testimonials .section-title').textContent = testimonialsConfig.title;
     const testimonialsGrid = document.getElementById('testimonials-grid');
-    testimonialsGrid.innerHTML = '';
-    testimonialsConfig.items.filter(item => item.status === "ativado").forEach((testimonial, index) => {
-        testimonialsGrid.innerHTML += `
-            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="${index * 100}">
-                <p class="quote">“${testimonial.quote}”</p>
-                <div class="author-info">
-                    <p class="author">${testimonial.author}</p>
-                    <p class="company">${testimonial.company}</p>
-                </div>
-            </div>`;
-    });
+
+    const activeTestimonials = testimonialsConfig.items.filter(item => item.status === "ativado");
+
+    const testimonialsHTML = activeTestimonials.map((testimonial, index) => `
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="${index * 100}">
+            <p class="quote">“${testimonial.quote}”</p>
+            <div class="author-info">
+                <p class="author">${testimonial.author}</p>
+                <p class="company">${testimonial.company}</p>
+            </div>
+        </div>`
+    ).join('');
+
+    testimonialsGrid.innerHTML = testimonialsHTML;
 }
 
 function renderContacts(contacts) {
     const contactList = document.getElementById('contact-list');
-    contactList.innerHTML = '';
-    contacts.filter(item => item.status === "ativado").forEach(contact => {
+
+    const activeContacts = contacts.filter(item => item.status === "ativado");
+
+    const contactsHTML = activeContacts.map(contact => {
         let href = contact.type === 'email' ? `mailto:${contact.value}` : `https://wa.me/${contact.value.replace(/\D/g, '')}`;
-        contactList.innerHTML += `<a href="${href}" target="_blank" class="contact-item">${contact.display}</a>`;
-    });
+        return `<a href="${href}" target="_blank" class="contact-item">${contact.display}</a>`;
+    }).join('');
+
+    contactList.innerHTML = contactsHTML;
 }
 
 function setupFloatButton(contacts) {
