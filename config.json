@@ -68,7 +68,7 @@
                 "featured": true
             },
             {
-                "id": "3g34gSmTc3A",
+                "id": "xAgUYyosqVM",
                 "title": "Mini-Documentário",
                 "description": "História do artesão Y.",
                 "status": "ativado",
@@ -86,14 +86,14 @@
                 "title": "Vídeo Corporativo",
                 "description": "Vídeo institucional para a empresa ABC.",
                 "status": "ativado",
-                "featured": true
+                "featured": false
             },
             {
                 "id": "Scxs7L0hZso",
                 "title": "Videoclipe Musical",
                 "description": "Clipe para a banda TKO.",
                 "status": "ativado",
-                "featured": true
+                "featured": false
             }
         ]
     },
