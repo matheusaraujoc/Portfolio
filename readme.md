@@ -1,11 +1,3 @@
-Com certeza\! Analisei a documentação que você criou. Ela já tem uma base excelente, com um foco muito claro na facilidade de uso através do `config.json`.
-
-Meu objetivo foi expandir os pontos que não estavam cobertos e aprimorar os tutoriais existentes, tornando a documentação completa e à prova de dúvidas para qualquer pessoa (incluindo você no futuro) que for gerenciar o site.
-
-Aqui está a versão revisada e ampliada.
-
------
-
 # Portfólio de Edição de Vídeos
 
 Um template de site moderno, responsivo e dinâmico, projetado para editores de vídeo, motion designers e criadores de conteúdo. O principal diferencial deste projeto é a facilidade de atualização: todo o conteúdo, desde textos e vídeos até a ativação de seções inteiras, é gerenciado através de um único arquivo de configuração (`config.json`), sem a necessidade de tocar em código HTML, CSS ou JavaScript.
