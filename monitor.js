@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (config.scrollAnimation && config.scrollAnimation.status === 'ativado') {
             await initializeScrollAnimation(config.scrollAnimation);
         } else {
+            // Se a animação estiver desativada no JSON, esconde as camadas
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('scroll-animation-container').style.display = 'none';
         }
@@ -20,7 +21,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// =============================================================
+// FUNÇÃO DE ANIMAÇÃO COM A NOVA LÓGICA DE TIMEOUT
+// =============================================================
 async function initializeScrollAnimation(animationConfig) {
+    // 1. DEFINIR UM TEMPO LIMITE (em milissegundos). 8000ms = 8 segundos.
+    // Você pode ajustar este valor como quiser.
+    const LOAD_TIMEOUT = 8000;
+
     const canvas = document.getElementById('hero-canvas');
     const context = canvas.getContext('2d');
     const { frameCount, folder } = animationConfig;
@@ -29,6 +37,7 @@ async function initializeScrollAnimation(animationConfig) {
 
     const getImagePath = (frame) => `${folder}frame (${frame}).jpg`;
 
+    // Inicia o pré-carregamento das imagens
     for (let i = 1; i <= frameCount; i++) {
         const img = new Image();
         const promise = new Promise((resolve, reject) => {
@@ -40,53 +49,84 @@ async function initializeScrollAnimation(animationConfig) {
         images.push(img);
     }
 
-    await Promise.all(imagePromises);
+    // 2. CRIAR UMA PROMESSA DE TIMEOUT que falhará após o tempo definido
+    const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Image load timeout')), LOAD_TIMEOUT);
+    });
 
-    const loadingScreen = document.getElementById('loading-screen');
-    loadingScreen.style.opacity = '0';
-    setTimeout(() => loadingScreen.style.display = 'none', 500);
+    try {
+        // 3. USAR Promise.race para ver quem termina primeiro: o carregamento ou o timeout
+        await Promise.race([
+            Promise.all(imagePromises),
+            timeoutPromise
+        ]);
 
-    const drawImage = (frameIndex) => {
-        const img = images[frameIndex];
-        if (!img) return;
-        const hRatio = canvas.width / img.width;
-        const vRatio = canvas.height / img.height;
-        const ratio = Math.max(hRatio, vRatio);
-        const centerShift_x = (canvas.width - img.width * ratio) / 2;
-        const centerShift_y = (canvas.height - img.height * ratio) / 2;
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(img, 0, 0, img.width, img.height,
-            centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
-    };
+        // --- SUCESSO: AS IMAGENS CARREGARAM A TEMPO ---
+        console.log("Animação de scroll carregada com sucesso!");
 
-    const resizeCanvas = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        updateImageOnScroll();
-    };
+        const drawImage = (frameIndex) => {
+            const img = images[frameIndex];
+            if (!img) return;
+            const hRatio = canvas.width / img.width;
+            const vRatio = canvas.height / img.height;
+            const ratio = Math.max(hRatio, vRatio);
+            const centerShift_x = (canvas.width - img.width * ratio) / 2;
+            const centerShift_y = (canvas.height - img.height * ratio) / 2;
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(img, 0, 0, img.width, img.height,
+                centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+        };
 
-    const updateImageOnScroll = () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollFraction = scrollTop / maxScrollTop;
-        let frameIndex = Math.min(
-            frameCount - 1,
-            Math.floor(scrollFraction * frameCount)
-        );
-        if (isNaN(frameIndex)) frameIndex = 0;
-        requestAnimationFrame(() => drawImage(frameIndex));
-    };
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            updateImageOnScroll();
+        };
 
-    window.addEventListener('scroll', updateImageOnScroll);
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+        const updateImageOnScroll = () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollFraction = scrollTop / maxScrollTop;
+            let frameIndex = Math.min(
+                frameCount - 1,
+                Math.floor(scrollFraction * frameCount)
+            );
+            if (isNaN(frameIndex)) frameIndex = 0;
+            requestAnimationFrame(() => drawImage(frameIndex));
+        };
+
+        window.addEventListener('scroll', updateImageOnScroll);
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+    } catch (error) {
+        // --- FALHA (TIMEOUT): AS IMAGENS DEMORARAM DEMAIS ---
+        console.warn(error.message, `- Ativando fundo estático como fallback.`);
+
+        const animationContainer = document.getElementById('scroll-animation-container');
+        const canvasElement = document.getElementById('hero-canvas');
+
+        // Aplica a primeira imagem da sequência como fundo estático
+        animationContainer.style.backgroundImage = `url('${getImagePath(1)}')`;
+        animationContainer.style.backgroundSize = 'cover';
+        animationContainer.style.backgroundPosition = 'center center';
+
+        // Esconde o canvas que não será usado
+        if (canvasElement) canvasElement.style.display = 'none';
+    } finally {
+        // Este bloco é executado SEMPRE, tanto em caso de sucesso quanto de timeout
+        const loadingScreen = document.getElementById('loading-screen');
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => loadingScreen.style.display = 'none', 500);
+    }
 }
+
 
 function renderContent(config) {
     document.querySelector('.hero-headline').textContent = config.hero.headline;
     document.querySelector('.hero-subheadline').textContent = config.hero.subheadline;
 
-    renderPersonalInfo(config.personalInfo);
+    renderPersonalInfo(config);
     if (config.services.status === "ativado") renderServices(config.services); else document.getElementById('services').style.display = 'none';
     if (config.videos.status === "ativado") renderVideos(config.videos); else document.getElementById('portfolio').style.display = 'none';
     if (config.testimonials.status === "ativado") renderTestimonials(config.testimonials); else document.getElementById('testimonials').style.display = 'none';
@@ -94,20 +134,47 @@ function renderContent(config) {
     setupFloatButton(config.contacts);
 }
 
-function renderPersonalInfo(info) {
+function renderPersonalInfo(config) {
+    const info = config.personalInfo;
+    const contacts = config.contacts || [];
+
     document.querySelector('.footer-name').textContent = info.name;
     const socialContainer = document.querySelector('.social-links-footer');
-
     const activeLinks = info.socialLinks.filter(link => link.status === "ativado");
-
     const linksHTML = activeLinks.map(link => {
         const socialName = link.icon.split('fa-')[1] || 'link';
         const accessibleLabel = socialName.charAt(0).toUpperCase() + socialName.slice(1);
         return `<a href="${link.url}" target="_blank" aria-label="Visite nosso perfil no ${accessibleLabel}"><i class="${link.icon}"></i></a>`;
     }).join('');
-
     socialContainer.innerHTML = linksHTML;
     document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    const footerContactDetails = document.getElementById('footer-contact-details');
+    const emailContact = contacts.find(contact => contact.type === 'email' && contact.status === 'ativado');
+    if (emailContact && footerContactDetails) {
+        footerContactDetails.innerHTML = `
+            <div class="contact-info-line">
+                <span id="email-text">${emailContact.value}</span>
+                <button id="copy-email-btn" class="copy-button" title="Copiar e-mail">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+        `;
+
+        const copyBtn = document.getElementById('copy-email-btn');
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(emailContact.value).then(() => {
+                copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                copyBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+                    copyBtn.classList.remove('copied');
+                }, 2500);
+            }).catch(err => {
+                console.error('Falha ao copiar e-mail: ', err);
+            });
+        });
+    }
 }
 
 function renderServices(servicesConfig) {
@@ -134,7 +201,6 @@ function renderVideos(videosConfig) {
 
     const activeVideos = videosConfig.items.filter(item => item.status === "ativado");
 
-    // Função auxiliar para gerar o HTML do card (COM A NOVA ESTRUTURA .video-card-inner)
     function videoCardHTML(video) {
         return `
         <div class="video-card">
@@ -212,12 +278,16 @@ function renderTestimonials(testimonialsConfig) {
 
 function renderContacts(contacts) {
     const contactList = document.getElementById('contact-list');
-
     const activeContacts = contacts.filter(item => item.status === "ativado");
 
     const contactsHTML = activeContacts.map(contact => {
-        let href = contact.type === 'email' ? `mailto:${contact.value}` : `https://wa.me/${contact.value.replace(/\D/g, '')}`;
-        return `<a href="${href}" target="_blank" class="contact-item">${contact.display}</a>`;
+        const href = contact.type === 'email'
+            ? `mailto:${contact.value}?subject=Contato%20pelo%20Portfólio`
+            : `https://wa.me/${contact.value.replace(/\D/g, '')}`;
+
+        const target = contact.type === 'email' ? '' : 'target="_blank"';
+
+        return `<a href="${href}" ${target} class="contact-item">${contact.display}</a>`;
     }).join('');
 
     contactList.innerHTML = contactsHTML;

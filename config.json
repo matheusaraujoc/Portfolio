@@ -9,16 +9,16 @@
         "subheadline": "Edição de vídeo que captura a atenção, conta uma história e gera resultados."
     },
     "personalInfo": {
-        "name": "Seu Nome",
+        "name": "Matheus Araújo",
         "socialLinks": [
             {
                 "icon": "fab fa-instagram",
                 "url": "https://instagram.com/seu-usuario",
-                "status": "ativado"
+                "status": "desativado"
             },
             {
                 "icon": "fab fa-linkedin",
-                "url": "https://linkedin.com/in/seu-usuario",
+                "url": "https://www.linkedin.com/in/matheusaraujoc",
                 "status": "ativado"
             },
             {
@@ -108,13 +108,13 @@
     "contacts": [
         {
             "type": "email",
-            "value": "seu-email@provedor.com",
+            "value": "mscarvalho0523@gmail.com",
             "display": "Vamos criar juntos?",
             "status": "ativado"
         },
         {
             "type": "whatsapp",
-            "value": "+5511999999999",
+            "value": "+5598988827057",
             "display": "WhatsApp",
             "status": "ativado"
         }

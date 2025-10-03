@@ -7,6 +7,8 @@
     --accent-color: #4dabf7;
     --accent-color-glow: rgba(77, 171, 247, 0.3);
     --text-secondary: #a0a0a0;
+    --success-color: #25d366;
+    /* Cor de sucesso para o botão de copiar */
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Lato', sans-serif;
 }
@@ -126,29 +128,15 @@ body.modal-open {
 
 .hero-headline {
     font-family: var(--font-heading);
-    /* 1. Tamanho de fonte fluido que se adapta à largura da tela. 
-           7.5vw = 7.5% da largura da tela. Em um iPhone de 375px, isso dá ~28px */
     font-size: 6.0vw;
-
-    /* 2. PROPRIEDADE MAIS IMPORTANTE: Desliga a hifenização automática */
     -webkit-hyphens: none;
-    /* Para Safari, Chrome etc. */
     -ms-hyphens: none;
-    /* Para Microsoft Browsers */
     hyphens: none;
-    /* Padrão */
-
-    /* 3. Garante que a palavra não seja quebrada no meio de forma alguma */
     word-break: keep-all;
-
-    /* 4. Propriedades anteriores mantidas por segurança */
     overflow-wrap: break-word;
     letter-spacing: normal;
-
     font-weight: 750;
-    /* Deixa as letras maiusculas, porém causa quebra de linha em palavras*/
     /*text-transform: uppercase;*/
-
 }
 
 .hero-subheadline {
@@ -159,7 +147,6 @@ body.modal-open {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
-/* Correção para o bug de hover na aba do navegador no botão Hero */
 .hero .cta-button {
     isolation: isolate;
 }
@@ -220,7 +207,7 @@ body.modal-open {
     line-height: 1.6;
 }
 
-/* PORTFOLIO E CARROSSEL - CORREÇÃO DE HOVER APLICADA AQUI */
+/* PORTFOLIO E CARROSSEL */
 .portfolio-section .container {
     max-width: 1400px;
 }
@@ -253,28 +240,23 @@ body.modal-open {
     transform: scale(1.2);
 }
 
-/* .video-card é agora o container estático que CORTA */
 .video-card {
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
     overflow: hidden;
-    /* Mantém o corte */
     display: flex;
     flex-direction: column;
 }
 
-/* .video-card-inner é o novo container que CRESCE */
 .video-card-inner {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
     transition: transform 0.3s ease;
-    /* Transição movida para cá */
 }
 
-/* O hover no pai (.video-card) afeta o filho (.video-card-inner) */
 .video-card:hover .video-card-inner {
     transform: scale(1.03);
 }
@@ -402,7 +384,6 @@ body.modal-open {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     align-items: stretch;
     gap: 2rem;
-    /* Espaçamento adicionado */
 }
 
 .close-modal-button {
@@ -440,7 +421,7 @@ body.modal-open {
     text-align: center;
     color: var(--text-secondary);
     max-width: 500px;
-    margin: 1rem auto 3rem;
+    margin: 1rem auto 2.5rem;
 }
 
 .contact-list-container {
@@ -474,15 +455,69 @@ body.modal-open {
     transform: scale(1.1);
 }
 
+/* --- ESTILOS DO RODAPÉ AJUSTADOS --- */
+
 .main-footer {
-    padding: 3rem 2rem;
+    padding: 1.5rem 2rem;
+    /* Padding vertical reduzido */
     text-align: center;
     color: var(--text-secondary);
 }
 
-.social-links-footer {
-    margin-top: 1rem;
+#footer-contact-details {
+    margin: 0.4rem 0;
+    /* Espaçamento vertical entre os itens do rodapé reduzido */
 }
+
+.contact-info-line {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    /* Espaçamento entre o e-mail e o botão de copiar */
+    padding: 0.5rem;
+}
+
+.contact-info-line span {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* Novo botão de copiar, apenas com ícone */
+.copy-button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    border-radius: 5px;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    /* Tamanho do ícone */
+    transition: all 0.3s ease;
+    line-height: 1;
+    /* Alinha o ícone perfeitamente */
+}
+
+.copy-button:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* Estilo para quando o e-mail for copiado */
+.copy-button.copied {
+    color: var(--success-color);
+}
+
+.social-links-footer {
+    margin-top: 0.1rem;
+    /* Espaçamento ajustado */
+}
+
+/* --- FIM DOS AJUSTES DO RODAPÉ --- */
 
 .social-links-footer a {
     color: var(--text-secondary);
@@ -545,13 +580,10 @@ body.modal-open {
     transform: scaleX(1);
 }
 
-
 /* ========================================================================== */
 /* RESPONSIVIDADE - PONTO DE QUEBRA PARA TABLETS E CELULARES GRANDES          */
 /* ========================================================================== */
 @media (max-width: 768px) {
-
-    /* --- AJUSTES GERAIS --- */
     .container {
         padding: 0 1.5rem;
     }
@@ -564,7 +596,6 @@ body.modal-open {
         padding: 4rem 0;
     }
 
-    /* --- AJUSTES DA SEÇÃO HERO --- */
     .hero-content {
         padding: 1.5rem;
         width: 90%;
@@ -576,13 +607,11 @@ body.modal-open {
         margin: 1rem auto 2rem;
     }
 
-    /* --- AJUSTES DOS GRIDS --- */
     .services-grid-container,
     .testimonials-grid-container {
         grid-template-columns: 1fr;
     }
 
-    /* --- AJUSTES DO PORTFOLIO E MODAL --- */
     .swiper {
         padding: 0;
     }
@@ -591,10 +620,14 @@ body.modal-open {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    /* --- AJUSTES DO CONTATO E BOTÕES FLUTUANTES --- */
     .contact-list-container {
         flex-direction: column;
         align-items: center;
+    }
+
+    .contact-item {
+        width: 90%;
+        max-width: 400px;
     }
 
     .whatsapp-float {
@@ -610,30 +643,24 @@ body.modal-open {
 /* RESPONSIVIDADE ADICIONAL PARA CELULARES PEQUENOS                           */
 /* ========================================================================== */
 @media (max-width: 480px) {
-
-    /* --- Correção Específica para o Título do Hero --- */
     .hero-headline {
-        /* 1. Reduz drasticamente o tamanho da fonte para caber em telas estreitas */
         font-size: clamp(1.6rem, 9vw, 2.2rem);
-
-        /* 2. Força a quebra de palavras muito longas para evitar que cortem na lateral */
         overflow-wrap: break-word;
         word-break: break-word;
-        /* Garante compatibilidade */
-
-        /* 3. Reduz o espaçamento entre letras para compactar o texto */
         letter-spacing: normal;
     }
 
     .hero-content {
-        /* 4. Reduz ainda mais o padding interno para dar o máximo de espaço ao texto */
         padding: 1.5rem 1rem;
+    }
+
+    .contact-info-line span {
+        font-size: 0.9rem;
+        /* Ajusta o e-mail no rodapé para telas bem pequenas */
     }
 }
 
 .contact-item {
     min-width: 280px;
-    /* Define uma largura mínima para os botões de contato */
     text-align: center;
-    /* Garante que o texto fique centralizado no botão */
 }
